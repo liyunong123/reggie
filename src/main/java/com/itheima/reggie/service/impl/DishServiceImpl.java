@@ -12,3 +12,4 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class DishServiceImpl extends ServiceImpl<DishMapper,Dish> implements DishService {
 }
+
