@@ -66,13 +66,13 @@ public class UserController {
 
         //获取验证码
         //String code = map.get("code").toString();
-        String code = "1234";
+        String code = "1234";//没有购买阿里云短信服务，直接用固定的验证码
 
         //从Session中获取保存的验证码
         Object codeInSession = session.getAttribute(phone);
 
         //进行验证码的比对（页面提交的验证码和Session中保存的验证码比对）
-        //if(codeInSession != null && codeInSession.equals(code)){//没有购买阿里云短信服务直接用下面的登录
+        //if(codeInSession != null && codeInSession.equals(code)){//没有购买阿里云短信服务，直接通过验证
         if(codeInSession == null ){
             //如果能够比对成功，说明登录成功
 
