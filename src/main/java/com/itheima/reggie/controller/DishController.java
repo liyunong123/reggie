@@ -1,6 +1,7 @@
 package com.itheima.reggie.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itheima.reggie.common.R;
 import com.itheima.reggie.dto.DishDto;
@@ -170,6 +171,37 @@ public class DishController {
         }).collect(Collectors.toList());
 
         return R.success(dishDtoList);
+    }
+
+    /**
+     * 菜品停售
+     * @param status
+     * @param ids
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    public R<String> updateStatusById(@PathVariable Integer status,Long[] ids) {
+        log.info(ids.toString());
+        //构造条件构造器
+        LambdaUpdateWrapper<Dish> updateWrapper = new LambdaUpdateWrapper<>();
+        //添加过滤条件
+        updateWrapper.set(Dish::getStatus,status).in(Dish::getId,ids);
+        dishService.update(updateWrapper);
+
+        return R.success("菜品停售成功");
+    }
+
+    /**
+     * 菜品删除
+     * @param ids
+     * @return
+     */
+    @DeleteMapping
+    public R<String> delete(@RequestParam List<Long> ids) {
+        log.info(ids.toString());
+
+        dishService.removeWithDish(ids);
+        return R.success("菜品数据删除成功");
     }
 
 }
