@@ -24,10 +24,11 @@ function setmealListApi(data) {
     })
 }
 
-//获取购物车内商品的集合//'url': '/shoppingCart/list',//还没写先用假数据
+//获取购物车内商品的集合
 function cartListApi(data) {
     return $axios({
-        'url': '/front/cartData.json',
+        'url': '/shoppingCart/list',
+       // 'url': '/front/cartData.json',
         'method': 'get',
         params:{...data}
     })
