@@ -1,13 +1,13 @@
 package com.itheima.reggie.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itheima.reggie.common.R;
 import com.itheima.reggie.dto.SetmealDto;
 import com.itheima.reggie.entity.Category;
 import com.itheima.reggie.entity.Setmeal;
 import com.itheima.reggie.service.CategoryService;
-import com.itheima.reggie.service.SetmealDishService;
 import com.itheima.reggie.service.SetmealService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -26,8 +26,6 @@ public class SetmealController {
     @Autowired
     private SetmealService setmealService;
 
-    @Autowired
-    private SetmealDishService setmealDishService;
 
     @Autowired
     private CategoryService categoryService;
@@ -97,6 +95,24 @@ public class SetmealController {
 
         setmealService.removeWithDish(ids);
         return R.success("套餐数据删除成功");
+    }
+
+    /**
+     * 套餐停售
+     * @param status
+     * @param ids
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    public R<String> updateStatusById(@PathVariable Integer status,Long ids) {
+        log.info(ids.toString());
+        //构造条件构造器
+        LambdaUpdateWrapper<Setmeal> updateWrapper = new LambdaUpdateWrapper<>();
+        //添加过滤条件
+        updateWrapper.set(Setmeal::getStatus,status).in(Setmeal::getId,ids);
+        setmealService.update(updateWrapper);
+
+        return R.success("套餐停售成功");
     }
 
     /**

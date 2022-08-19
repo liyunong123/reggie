@@ -23,6 +23,9 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper,Setmeal> imple
 
     @Autowired
     private SetmealDishService setmealDishService;
+
+    @Autowired
+    private SetmealService setmealService;
     /**
      * 新增套餐，同时需要保存套餐和菜品的关联关系
      * @param setmealDto
@@ -66,4 +69,10 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper,Setmeal> imple
         //删除关系表中的数据--setmeal_dish
         setmealDishService.remove(lambdaQueryWrapper);
     }
+
+    @Override
+    public void updateStatusById(Integer status, Long ids) {
+
+    }
+
 }

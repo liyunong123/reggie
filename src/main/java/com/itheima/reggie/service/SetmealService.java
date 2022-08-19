@@ -20,4 +20,7 @@ public interface SetmealService extends IService<Setmeal> {
      */
     public void removeWithDish(List<Long> ids);
 
+    public void updateStatusById(Integer status,Long ids);
+
+
 }
